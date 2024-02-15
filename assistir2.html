@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonus</title>
+    <link rel="stylesheet" href="assistir2.css">
+    <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+<div class="btn">
+    <div class="btn-back">
+      <p>ESCOLHA:</p>
+      <button class="yes">2$ Reais</button>
+      <button class="no">Presente Misterioso</button>
+    </div>
+    <div class="btn-front">Surpresa</div>
+  </div>
+  <script>
+    var btn = document.querySelector( '.btn' );
+
+var btnFront = btn.querySelector( '.btn-front' ),
+    btnYes = btn.querySelector( '.btn-back .yes' ),
+    btnNo = btn.querySelector( '.btn-back .no' );
+
+btnFront.addEventListener( 'click', function( event ) {
+  var mx = event.clientX - btn.offsetLeft,
+      my = event.clientY - btn.offsetTop;
+
+  var w = btn.offsetWidth,
+      h = btn.offsetHeight;
+  
+  var directions = [
+    { id: 'top', x: w/2, y: 0 },
+    { id: 'right', x: w, y: h/2 },
+    { id: 'bottom', x: w/2, y: h },
+    { id: 'left', x: 0, y: h/2 }
+  ];
+  
+  directions.sort( function( a, b ) {
+    return distance( mx, my, a.x, a.y ) - distance( mx, my, b.x, b.y );
+  } );
+  
+  btn.setAttribute( 'data-direction', directions.shift().id );
+  btn.classList.add( 'is-open' );
+
+} );
+
+btnYes.addEventListener( 'click', function( event ) { 
+  btn.classList.remove( 'is-open' );
+} );
+
+btnNo.addEventListener( 'click', function( event ) {
+    window.location.href = "https://scontent.fbsb22-1.fna.fbcdn.net/v/t1.6435-9/131485687_948392439298394_3113580565066238609_n.png?_nc_cat=109&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHSy4wwn2Blq6HJ0eIWY2-p0GyP2LXf8wzQbI_Ytd_zDOvA_V441GUJI5KuDJmeEA4tFXOccXqXcDuhegjmTwEJ&_nc_ohc=rVjBJpu5HKUAX8y0FSt&_nc_ht=scontent.fbsb22-1.fna&oh=00_AfA0_NjCY9fcZ-w4RDTzxnZuBlBaIo9ObVBpHTV5R52k-g&oe=6525C06F",
+    btn.classList.remove( 'is-open' );
+} );
+
+function distance( x1, y1, x2, y2 ) {
+  var dx = x1-x2;
+  var dy = y1-y2;
+  return Math.sqrt( dx*dx + dy*dy );
+}
+</script>
+
+</body>
